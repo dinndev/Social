@@ -49,7 +49,7 @@ export function DataProvider({ children, initialState, reducer }) {
     });
     writeData();
     return unsubscribe;
-  }, [user]);
+  }, [user.uId]);
 
   const val = {
     reducer: useReducer(reducer, initialState),
@@ -58,7 +58,6 @@ export function DataProvider({ children, initialState, reducer }) {
     signup,
     login,
     facebookLoginPopup,
-    writeData,
   };
   return <dataContext.Provider value={val}>{children}</dataContext.Provider>;
 }
