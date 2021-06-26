@@ -5,7 +5,7 @@ export const initialState = {
 const ACTION = {
   setPost: "SET_POST",
   deletePost: "DELETE_POST",
-  getCurrentuser: "ADD_USER",
+  clearDataAfterSignout: "CLEAR_DATA_AFTER_SIGNOUT",
 };
 
 export const reducer = (state, action) => {
@@ -13,29 +13,23 @@ export const reducer = (state, action) => {
     case ACTION.setPost:
       return {
         ...state,
-        posts: [
-          ...state.posts,
-          newPost(action.posts.body, action.posts.postId),
-        ],
+        posts: action.posts,
       };
     case ACTION.deletePost:
       return {
         ...state,
-        posts: [...state.posts.filter((_, index) => index !== action.index)],
+        posts: [
+          ...state.posts.filter(({ postId }) => postId !== action.postId),
+        ],
       };
-    case ACTION.getCurrentuser:
-      return {
-        ...state,
-        currentUser: action.currentUser,
-      };
+    case ACTION.clearDataAfterSignout:
+      state = undefined;
+
     default:
       return state;
   }
 };
 
-const newPost = (body, postId) => {
-  return { date: new Date().getTime(), body, postId };
-};
 // const newUser = (email, password) => {
 //   return { email, password };
 // };
