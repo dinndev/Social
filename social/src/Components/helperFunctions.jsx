@@ -6,6 +6,16 @@ import React from "react";
 import { Route, Redirect } from "react-router-dom";
 import { useDataContext } from "./State/DataProvider";
 
+// email validation function
+export const validateEmail = (email) => {
+  const re =
+    /^(([^<>()[\]\\.,;:\s@"]+(\.[^<>()[\]\\.,;:\s@"]+)*)|(".+"))@((\[[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\.[0-9]{1,3}\])|(([a-zA-Z\-0-9]+\.)+[a-zA-Z]{2,}))$/;
+  return re.test(String(email).toLowerCase());
+};
+export const getDisplayNamefromEmail = (email) => {
+  return email.substring(0, email.indexOf("@"));
+};
+
 export const app = firebase.initializeApp({
   apiKey: env.SOCIAL_FIREBASE_KEY,
   authDomain: env.SOCIAL_FIRBASE_DOMAIN,

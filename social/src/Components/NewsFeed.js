@@ -7,7 +7,7 @@ import { database } from "./helperFunctions";
 
 function NewsFeed() {
   const { signout, user, reducer } = useDataContext();
-  const [{ posts }] = reducer;
+  const [{ posts }, dispatch] = reducer;
   const { displayName, email, displayPhoto } = user;
   const history = useHistory();
   const handleClick = async () => {
