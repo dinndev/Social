@@ -1,20 +1,22 @@
 import React from "react";
 import { useDataContext } from "./State/DataProvider";
+import { database } from "./helperFunctions";
 
-function Post({ date, body, index }) {
-  const value = useDataContext();
-  const [_, dispatch] = value.reducer;
-  const deletePost = (_) => {
+function Post({ time, body, postId }) {
+  const { reducer, user } = useDataContext();
+  const [_, dispatch] = reducer;
+  const deletePost = () => {
     dispatch({
       type: "DELETE_POST",
-      index: index,
+      postId,
     });
+    database.ref(`posts/${user.uId}/${postId}`).remove();
   };
   return (
     <ul>
       <li className="post">
         {body}
-        {date}
+        {time}
         <button onClick={() => deletePost()}> Delete </button>
       </li>
     </ul>

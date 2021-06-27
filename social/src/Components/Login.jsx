@@ -1,11 +1,11 @@
 import React, { useRef, useState, useEffect } from "react";
 import { useDataContext } from "./State/DataProvider";
-
+import { validateEmail } from "./helperFunctions";
 import { useHistory, Link } from "react-router-dom";
 
 function Login() {
   const [loading, setLoading] = useState(false);
-  const { login, facebookLoginPopup, writeData } = useDataContext();
+  const { login, facebookLoginPopup } = useDataContext();
   const [error, setError] = useState("");
   const history = useHistory();
   const inputRef = useRef({});
@@ -25,6 +25,7 @@ function Login() {
       setError(error.message);
     }
   };
+
   const handleClickfacebookLoginPopup = async () => {
     try {
       setError("");

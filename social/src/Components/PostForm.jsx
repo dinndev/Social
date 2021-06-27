@@ -7,28 +7,45 @@ function PostForm() {
   const { user, reducer } = useDataContext();
   const [{ posts }, dispatch] = reducer;
 
-  useEffect(() => {
-    const postRef = database.ref(`/posts/${user.uId}/`);
-    postRef.on("value", (snapshot) => {
-      snapshot.forEach((snap) => {
-        const { body, postId } = snap.val();
+  useEffect(async () => {
+    try {
+      const postRef = database.ref(`/posts/${user.uId}/`);
+      postRef.on("value", (snapshot) => {
+        let value = [];
+        snapshot.forEach((snap) => {
+          value.push(snap.val());
+        });
         dispatch({
           type: "SET_POST",
-          posts: { body, postId },
+          posts: value,
         });
       });
-    });
+    } catch (error) {
+      console.log(error);
+    }
   }, []);
-  const writePosts = (e) => {
-    e.preventDefault();
-    let id = uniqid("post-");
-    database.ref(`posts/${user.uId}/${id}`).set({
-      body: postValue.current.value,
-      time: new Date().getTime(),
-      postId: id,
-    });
 
-    postValue.current.value = "";
+  const writePosts = async (e) => {
+    e.preventDefault();
+    if (postValue.current.value.length > 0) {
+      try {
+        let id = uniqid("post-");
+        database
+          .ref(`posts/${user.uId}/${id}`)
+          .set({
+            body: postValue.current.value,
+            time: new Date().getTime(),
+            postId: id,
+          })
+          .then(() => {
+            postValue.current.value = "";
+          });
+      } catch (error) {
+        console.log(error);
+      }
+    } else {
+      console.log("Form must be filled up");
+    }
   };
 
   return (

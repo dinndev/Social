@@ -57,13 +57,13 @@ function Signup() {
         <input
           required={true}
           ref={(el) => (inputRef.current["Password"] = el)}
-          type="text"
+          type="password"
           placeholder="Password"
         />
         <input
           required={true}
           ref={(el) => (inputRef.current["ConfirmPassword"] = el)}
-          type="text"
+          type="password"
           placeholder="Confirm password"
         />
         <button disabled={loading} type="submit">

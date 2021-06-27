@@ -41,12 +41,7 @@ function EditProfileForm() {
         id="stringUrl"
         placeholder="Provide valid url for display picture"
       />
-      <input
-        ref={(el) => (inputRef.current["gender"] = el)}
-        type="text"
-        name="gender"
-        placeholder="Gender"
-      />
+
       <button type="submit">Update Profile</button>
     </form>
   );

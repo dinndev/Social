@@ -1,3 +1,4 @@
+import userEvent from "@testing-library/user-event";
 import React, { useReducer, useContext, useEffect, useState } from "react";
 import { auth, provider, database } from "../helperFunctions";
 
@@ -26,15 +27,13 @@ export function DataProvider({ children, initialState, reducer }) {
     return auth.signOut();
   };
   const writeData = () => {
-    const users = database.ref(`users/${user.uId}/${user.displayName}`);
-    if (user.uId) {
-      users.set({
-        displayName: user.displayName,
-        displayPhoto: user.displayPhoto,
-        uId: user.uId,
-        email: user.email,
-      });
-    }
+    const users = database.ref(`users/${user.uId}`);
+    users.set({
+      displayName: user.displayName,
+      displayPhoto: user.displayPhoto,
+      uId: user.uId,
+      email: user.email,
+    });
   };
 
   useEffect(() => {
@@ -49,7 +48,7 @@ export function DataProvider({ children, initialState, reducer }) {
     });
     writeData();
     return unsubscribe;
-  }, [user.uId]);
+  }, [user.displayName]);
 
   const val = {
     reducer: useReducer(reducer, initialState),

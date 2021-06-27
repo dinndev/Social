@@ -3,14 +3,13 @@ import PostForm from "./PostForm";
 import Posts from "./Posts";
 import { useDataContext } from "./State/DataProvider";
 import { useHistory } from "react-router-dom";
-import { database } from "./helperFunctions";
+import Nav from "./Nav";
 
 function NewsFeed() {
-  const { signout, user, reducer } = useDataContext();
-  const [{ posts }, dispatch] = reducer;
-  const { displayName, email, displayPhoto } = user;
+  const { signout, reducer } = useDataContext();
+
   const history = useHistory();
-  const handleClick = async () => {
+  const handleClickSignout = async () => {
     try {
       await signout();
       history.push("/login");
@@ -21,9 +20,7 @@ function NewsFeed() {
 
   return (
     <div>
-      <button onClick={handleClick}>Signout</button>
-      {displayName ? displayName : email}
-      <img src={displayPhoto} alt="profile pic" />
+      <Nav signout={handleClickSignout} />
       <PostForm />
       <Posts />
     </div>
