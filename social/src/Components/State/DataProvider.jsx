@@ -26,19 +26,24 @@ export function DataProvider({ children, initialState, reducer }) {
   const signout = () => {
     return auth.signOut();
   };
-  const writeData = () => {
+  const writeData = async () => {
     const users = database.ref(`users/${user.uId}`);
-    users.set({
-      displayName: user.displayName,
-      displayPhoto: user.displayPhoto,
-      uId: user.uId,
-      email: user.email,
-    });
+    try {
+      if (user.uId) {
+        await users.set({
+          displayName: user.displayName,
+          displayPhoto: user.displayPhoto,
+          uId: user.uId,
+          email: user.email,
+        });
+      }
+    } catch (error) {
+      console.log(error);
+    }
   };
 
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
-      if (user === null) return;
       setUser({
         displayName: user.displayName,
         displayPhoto: user.photoURL,
@@ -46,6 +51,7 @@ export function DataProvider({ children, initialState, reducer }) {
         email: user.email,
       });
     });
+
     writeData();
     return unsubscribe;
   }, [user.displayName]);

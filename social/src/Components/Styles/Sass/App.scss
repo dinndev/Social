@@ -1,4 +1,23 @@
-.App {
-  background-color: red;
-  color: red;
+@font-face {
+  font-family: "Nunito Semibold";
+  src: local("Nunito Semibold"),
+    url("../Fonts/Nunito-SemiBold.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Nunito Regular";
+  src: local("Nunito Regular"),
+    url("../Fonts/Nunito-Regular.ttf") format("truetype");
+}
+@font-face {
+  font-family: "Nunito Bold";
+  src: local("Nunito Bold"), url("../Fonts/Nunito-Bold.ttf") format("truetype");
+}
+
+@import "./post.module.scss";
+
+body {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  background-color: $main-bg;
 }

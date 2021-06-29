@@ -16,6 +16,16 @@ export const getDisplayNamefromEmail = (email) => {
   return email.substring(0, email.indexOf("@"));
 };
 
+export function phonenumber(inputtxt) {
+  const phoneno = /^\(?([0-9]{3})\)?[-. ]?([0-9]{3})[-. ]?([0-9]{4})$/;
+  if (inputtxt.match(phoneno)) {
+    return true;
+  } else {
+    alert("message");
+    return false;
+  }
+}
+
 export const app = firebase.initializeApp({
   apiKey: env.SOCIAL_FIREBASE_KEY,
   authDomain: env.SOCIAL_FIRBASE_DOMAIN,
@@ -38,6 +48,7 @@ export function PrivateRoute({ component: Component, ...rest }) {
     <Redirect to="/login" />
   );
 }
+
 export function PublicRoute({ component: Component, restricted, ...rest }) {
   const { user } = useDataContext();
 

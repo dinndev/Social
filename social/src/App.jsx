@@ -1,13 +1,11 @@
-import React, { useEffect } from "react";
-import PostForm from "./Components/PostForm";
-import Posts from "./Components/Posts";
+import React from "react";
 
-import { BrowserRouter as Router, Route, Switch } from "react-router-dom";
+import "./Components/Styles/Sass/App.scss";
+import { BrowserRouter as Router, Switch } from "react-router-dom";
 import Signup from "./Components/Signup";
 import Login from "./Components/Login";
-import { useDataContext } from "./Components/State/DataProvider";
-import { auth, PrivateRoute, PublicRoute } from "./Components/helperFunctions";
-import NewsFeed from "./Components/NewsFeed";
+import { PrivateRoute, PublicRoute } from "./Components/helperFunctions";
+import Profile from "./Components/Profile";
 
 function App() {
   return (
@@ -25,7 +23,7 @@ function App() {
           restricted={true}
           exact={true}
         />
-        <PrivateRoute exact={true} path="/" component={NewsFeed} />
+        <PrivateRoute exact={true} path="/" component={Profile} />
       </Switch>
     </div>
   );

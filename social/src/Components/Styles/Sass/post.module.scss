@@ -1,0 +1,50 @@
+@import "./variables.scss";
+
+.post {
+  background-color: $box-color;
+  border-radius: 10px;
+  list-style-type: none;
+  width: 87.6%;
+  margin-bottom: 0.8rem;
+  display: flex;
+  flex-direction: column;
+  padding: 1rem 0.8rem;
+  min-height: 5rem;
+
+  .userInfo {
+    display: flex;
+    justify-content: space-between;
+    .displayPhoto {
+      width: 2rem;
+      height: 2rem;
+      border-radius: 50px;
+      margin-right: 1rem;
+      object-fit: contain;
+    }
+    .user {
+      display: flex;
+      align-items: center;
+    }
+    .name {
+      font-family: "Nunito Bold";
+      font-size: 0.8rem;
+    }
+    .email {
+      font-family: "Nunito Regular";
+      color: $shade;
+      font-size: 0.7rem;
+    }
+    .option div::after {
+      content: "\2807";
+      font-size: 20px;
+      cursor: pointer;
+      color: $accent-dark-violet;
+    }
+  }
+  .postContainer {
+    .postDescription {
+      font-family: "Nunito Regular";
+      font-size: 12px;
+    }
+  }
+}

@@ -1,0 +1,11 @@
+.posts {
+  display: flex;
+  flex-wrap: wrap;
+  flex-direction: column;
+  padding: 0;
+  align-items: center;
+  max-width: 23rem;
+  margin: auto;
+  margin-top: 3rem;
+  // margin: auto;
+}

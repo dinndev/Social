@@ -7,24 +7,6 @@ function PostForm() {
   const { user, reducer } = useDataContext();
   const [{ posts }, dispatch] = reducer;
 
-  useEffect(async () => {
-    try {
-      const postRef = database.ref(`/posts/${user.uId}/`);
-      postRef.on("value", (snapshot) => {
-        let value = [];
-        snapshot.forEach((snap) => {
-          value.push(snap.val());
-        });
-        dispatch({
-          type: "SET_POST",
-          posts: value,
-        });
-      });
-    } catch (error) {
-      console.log(error);
-    }
-  }, []);
-
   const writePosts = async (e) => {
     e.preventDefault();
     if (postValue.current.value.length > 0) {

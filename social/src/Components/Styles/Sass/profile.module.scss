@@ -1,0 +1,52 @@
+@import "./variables.scss";
+
+.profileContainer {
+  display: flex;
+  flex-direction: column;
+  justify-content: space-between;
+  align-items: center;
+  height: 17rem;
+  padding: 1rem 0;
+  .userInfo {
+    text-align: center;
+    .email {
+      color: $shade;
+      font-size: 12px;
+      font-family: "Nunito Regular";
+    }
+    .displayName {
+      font-size: 17px;
+      font-family: "Nunito Bold";
+    }
+  }
+  .profilePicture {
+    height: 7rem;
+    width: 7rem;
+    border-radius: 100%;
+  }
+}
+
+.buttonContainer {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  margin-bottom: 1rem;
+  .signout {
+    border: none;
+    background-color: transparent;
+    color: $accent-dark-violet;
+    font-family: "Nunito Semibold";
+  }
+  .updateProfile {
+    border: none;
+    @extend %linear-bg;
+    color: white;
+    padding: 0.7em 1em;
+    border-radius: 20px;
+    font-size: 10px;
+    outline: none;
+    margin-right: 0.8em;
+    font-family: "Nunito Semibold";
+  }
+}

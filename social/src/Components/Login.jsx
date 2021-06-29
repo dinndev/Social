@@ -31,6 +31,7 @@ function Login() {
       setError("");
       setLoading(true);
       await facebookLoginPopup();
+
       history.push("/");
     } catch (error) {
       setLoading(false);

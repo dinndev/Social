@@ -16,11 +16,12 @@ function EditProfileForm() {
       await database.ref(`users/${user.uId}`).update({
         displayName: inputRef.current.newDisplayName.value,
         displayPhoto: inputRef.current.newDisplayPhoto.value,
+        phoneNumber: inputRef.current.newPhoneNumber.value,
       });
 
       console.log("profile updated refresh the 📄 ");
     } catch (error) {
-      console.log(error);
+      console.log(error.message);
     }
   };
 
@@ -40,6 +41,12 @@ function EditProfileForm() {
         name="stringUrl"
         id="stringUrl"
         placeholder="Provide valid url for display picture"
+      />
+      <input
+        ref={(el) => (inputRef.current["newPhoneNumber"] = el)}
+        type="tel"
+        name="number"
+        placeholder="Provide valid phone number"
       />
 
       <button type="submit">Update Profile</button>
