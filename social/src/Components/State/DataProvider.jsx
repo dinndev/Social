@@ -46,7 +46,9 @@ export function DataProvider({ children, initialState, reducer }) {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser({
         displayName: user.displayName,
-        displayPhoto: user.photoURL,
+        displayPhoto: user.photoURL
+          ? user.photoURL
+          : "https://freesvg.org/img/abstract-user-flat-1.png",
         uId: user.uid,
         email: user.email,
       });
@@ -55,7 +57,7 @@ export function DataProvider({ children, initialState, reducer }) {
     writeData();
     return unsubscribe;
   }, [user.displayName]);
-
+  console.log(user);
   const val = {
     reducer: useReducer(reducer, initialState),
     user,

@@ -23,7 +23,6 @@ function Post({ body, postId }) {
               src={user.displayPhoto}
               alt={`${user.displayName}profile picture`}
             />
-
             <span className={styles.name}>
               {user.displayName} <br />
               <span className={styles.email}>{user.email}</span>

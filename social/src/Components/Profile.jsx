@@ -6,9 +6,10 @@ import { useDataContext } from "./State/DataProvider";
 import { useHistory } from "react-router-dom";
 import { getDisplayNamefromEmail, database } from "./helperFunctions";
 import EditProfileForm from "./EditProfileForm";
+import EmptyPost from "./EmptyPost";
 function Profile() {
   const { signout, user, reducer } = useDataContext();
-  const [_, dispatch] = reducer;
+  const [{ posts }, dispatch] = reducer;
   const { displayName, email, displayPhoto, phoneNumber } = user;
   const history = useHistory();
   useEffect(async () => {
@@ -58,7 +59,7 @@ function Profile() {
           </button>
         </div>
       </div>
-      <Posts />
+      {posts.length > 0 ? <Posts /> : <EmptyPost />}
     </>
   );
 }
