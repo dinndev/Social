@@ -5,7 +5,7 @@ import uniqid from "uniqid";
 function PostForm() {
   const postValue = useRef("");
   const { user, reducer } = useDataContext();
-  const [{ posts }, dispatch] = reducer;
+  const [{ posts, isLoading }, dispatch] = reducer;
 
   const writePosts = async (e) => {
     e.preventDefault();
@@ -18,6 +18,7 @@ function PostForm() {
             body: postValue.current.value,
             time: new Date().getTime(),
             postId: id,
+            isLike: false,
           })
           .then(() => {
             postValue.current.value = "";
@@ -29,7 +30,6 @@ function PostForm() {
       console.log("Form must be filled up");
     }
   };
-
   return (
     <div className="post-form">
       <form>

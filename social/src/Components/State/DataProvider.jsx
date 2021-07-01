@@ -1,6 +1,10 @@
-import userEvent from "@testing-library/user-event";
 import React, { useReducer, useContext, useEffect, useState } from "react";
-import { auth, provider, database } from "../helperFunctions";
+import {
+  auth,
+  provider,
+  database,
+  getDisplayNamefromEmail,
+} from "../helperFunctions";
 
 const dataContext = React.createContext();
 export function DataProvider({ children, initialState, reducer }) {
@@ -45,7 +49,9 @@ export function DataProvider({ children, initialState, reducer }) {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged((user) => {
       setUser({
-        displayName: user.displayName,
+        displayName: user.displayName
+          ? user.displayName
+          : getDisplayNamefromEmail(user.email),
         displayPhoto: user.photoURL
           ? user.photoURL
           : "https://freesvg.org/img/abstract-user-flat-1.png",
@@ -56,8 +62,8 @@ export function DataProvider({ children, initialState, reducer }) {
 
     writeData();
     return unsubscribe;
-  }, [user.displayName]);
-  console.log(user);
+  }, []);
+
   const val = {
     reducer: useReducer(reducer, initialState),
     user,

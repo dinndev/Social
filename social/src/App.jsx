@@ -6,6 +6,7 @@ import Signup from "./Components/Signup";
 import Login from "./Components/Login";
 import { PrivateRoute, PublicRoute } from "./Components/helperFunctions";
 import Profile from "./Components/Profile";
+import Nav from "./Components/Nav";
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
         />
         <PrivateRoute exact={true} path="/" component={Profile} />
       </Switch>
+      <Nav />
     </div>
   );
 }
