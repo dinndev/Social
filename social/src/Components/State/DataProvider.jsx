@@ -63,7 +63,6 @@ export function DataProvider({ children, initialState, reducer }) {
     writeData();
     return unsubscribe;
   }, []);
-
   const val = {
     reducer: useReducer(reducer, initialState),
     user,

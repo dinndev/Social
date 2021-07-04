@@ -13,9 +13,12 @@ function Profile() {
   const [{ posts, isLoading }, dispatch] = reducer;
   const { displayName, email, displayPhoto, phoneNumber } = user;
   const history = useHistory();
-  useEffect(() => {
+
+  const getPostfromfirebase = (_) => {
     try {
       const postRef = database.ref(`/posts/${user.uId}/`);
+
+      dispatch({ type: "TOGGLE_LOADING", loading: true });
       postRef.on("value", (snapshot) => {
         let value = [];
         snapshot.forEach((snap) => {
@@ -25,10 +28,16 @@ function Profile() {
           type: "SET_POST",
           posts: value,
         });
+        dispatch({ type: "TOGGLE_LOADING", loading: false });
       });
     } catch (error) {
       console.log(error);
     }
+  };
+
+  useEffect(() => {
+    let unsubscribe = getPostfromfirebase();
+    return unsubscribe;
   }, []);
   const handleClickSignout = async () => {
     try {
@@ -61,7 +70,13 @@ function Profile() {
           </button>
         </div>
       </div>
-      {isLoading ? <SkeletonItems /> : <Posts />}
+      {isLoading ? (
+        <SkeletonItems />
+      ) : posts.length > 0 ? (
+        <Posts />
+      ) : (
+        <EmptyPost />
+      )}
     </>
   );
 }

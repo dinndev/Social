@@ -1,5 +1,4 @@
 import React from "react";
-
 import "./Components/Styles/Sass/App.scss";
 import { BrowserRouter as Router, Switch } from "react-router-dom";
 import Signup from "./Components/Signup";
@@ -7,6 +6,8 @@ import Login from "./Components/Login";
 import { PrivateRoute, PublicRoute } from "./Components/helperFunctions";
 import Profile from "./Components/Profile";
 import Nav from "./Components/Nav";
+
+import SkeletonItems from "./Components/SkeletonItems";
 
 function App() {
   return (
