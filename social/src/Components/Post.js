@@ -1,9 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import { useDataContext } from "./State/DataProvider";
 import { database } from "./helperFunctions";
 import styles from "./Styles/Sass/post.module.scss";
+import { AnimatePresence, motion } from "framer-motion";
 
 function Post({ body, postId, isLike }) {
+  const [toBeEditPost, setToBeEditData] = useState("");
+
+  const [toggleModal, setToggleModal] = useState(false);
   const { reducer, user } = useDataContext();
   const [{ posts }, dispatch] = reducer;
   const deletePost = () => {
@@ -21,6 +25,30 @@ function Post({ body, postId, isLike }) {
     } catch (error) {
       console.log(error);
     }
+  };
+  const updatePost = (e) => {
+    e.preventDefault();
+    try {
+      database.ref(`posts/${user.uId}/${postId}/`).update({
+        body: toBeEditPost,
+      });
+      setToggleModal(false);
+    } catch (error) {
+      console.log(error);
+    }
+  };
+  const getTobeEditPost = (_) => {
+    try {
+      database
+        .ref(`posts/${user.uId}/${postId}`)
+        .once("value")
+        .then((snapshot) => {
+          setToBeEditData(snapshot.val().body);
+        });
+    } catch (error) {
+      console.log(error);
+    }
+    setToggleModal(true);
   };
 
   return (
@@ -52,6 +80,7 @@ function Post({ body, postId, isLike }) {
             <path d="M11.3906 0C10.1417 0 8.90869 0.408846 8.00012 1.10989C7.09143 0.408846 5.8584 0 4.60938 0C2.02466 0 0 1.64231 0 3.73892C0 6.18942 3.48242 8.88687 7.68958 11.9046C7.7782 11.9682 7.88916 12 8.00012 12C8.11108 12 8.22192 11.9682 8.31067 11.9045C12.5176 8.88667 16 6.18922 16 3.73892C16 1.64231 13.9753 0 11.3906 0V0ZM8.00012 11.1118C4.24133 8.40515 0.9375 5.81276 0.9375 3.73892C0.9375 2.06878 2.55042 0.760459 4.60938 0.760459C5.7417 0.760459 6.90381 1.2004 7.64221 1.90857C7.7312 1.99403 7.86218 2.04324 8.00012 2.04324C8.13806 2.04324 8.26892 1.99403 8.35803 1.90857C9.09631 1.2004 10.2584 0.760459 11.3906 0.760459C13.4496 0.760459 15.0625 2.06878 15.0625 3.73892C15.0625 5.81256 11.7588 8.40505 8.00012 11.1118Z" />
           </svg>
           <svg
+            onClick={getTobeEditPost}
             className={styles.edit}
             viewBox="0 0 14 14"
             fill="none"
@@ -84,6 +113,18 @@ function Post({ body, postId, isLike }) {
           </svg>
         </div>
       </li>
+      {toggleModal && (
+        <form onSubmit={(e) => updatePost(e)}>
+          <textarea
+            onChange={(e) => setToBeEditData(e.target.value)}
+            value={toBeEditPost}
+            type="text"
+            placeholder="new post"
+          />
+          <button type="submit">Post</button>
+          <span onClick={(_) => setToggleModal(false)}>X</span>
+        </form>
+      )}
     </>
   );
 }
