@@ -1,10 +1,8 @@
+@import "variables.scss";
 .modalContainer {
-  max-width: 20rem;
-  border-radius: 6px;
-  background-color: #ededed;
-  position: fixed;
-  top: 50%;
-  right: 50%;
-  transform: translate(50%, -50%);
-  z-index: 1;
+  @extend %modal;
+}
+
+.postFormModal {
+  @extend %modal;
 }

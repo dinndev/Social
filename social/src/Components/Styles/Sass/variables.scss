@@ -4,6 +4,7 @@ $box-color: #f8f8f8;
 $accent-dark-violet: #5924ed;
 $accent-light-violet: #b222e3;
 
+
 %linear-bg {
   background: linear-gradient(
     74.92deg,
@@ -11,4 +12,15 @@ $accent-light-violet: #b222e3;
     rgba(142, 35, 231, 0.404755) 145.36%,
     rgba(178, 34, 227, 0) 204.86%
   );
+}
+
+%modal {
+  max-width: 20rem;
+  border-radius: 6px;
+  background-color: #ededed;
+  position: fixed;
+  top: 50%;
+  right: 50%;
+  transform: translate(50%, -50%);
+  z-index: 1;
 }

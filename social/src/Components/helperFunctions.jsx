@@ -41,14 +41,14 @@ export const auth = app.auth();
 export const provider = new firebase.auth.FacebookAuthProvider();
 export const database = app.database();
 export function PrivateRoute({ component: Component, ...rest }) {
-  const { user } = useDataContext();
+  const { user, reducer } = useDataContext();
+
   return user.uId ? (
     <Route {...rest} component={Component} />
   ) : (
     <Redirect to="/login" />
   );
 }
-
 export function PublicRoute({ component: Component, restricted, ...rest }) {
   const { user } = useDataContext();
 

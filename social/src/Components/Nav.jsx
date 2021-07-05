@@ -1,7 +1,13 @@
-import React from "react";
+import React, { useState } from "react";
 import styles from "./Styles/Sass/nav.module.scss";
+import PostForm from "./PostForm";
 
 function Nav() {
+  const [toggleModal, setToggleModal] = useState(false);
+  const handleToggleModal = (_) => {
+    setToggleModal(false);
+    console.log(toggleModal);
+  };
   return (
     <div className={styles.navContainer}>
       <svg
@@ -42,6 +48,7 @@ function Nav() {
         />
       </svg>
       <svg
+        onClick={(_) => setToggleModal(true)}
         className={styles.add}
         viewBox="0 0 25 25"
         fill="none"
@@ -59,6 +66,7 @@ function Nav() {
           </clipPath>
         </defs>
       </svg>
+      {toggleModal && <PostForm toggleModal={handleToggleModal} />}
     </div>
   );
 }

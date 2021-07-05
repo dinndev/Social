@@ -1,4 +1,4 @@
-import React, { useEffect } from "react";
+import React, { useEffect, useState } from "react";
 import PostForm from "./PostForm";
 import Posts from "./Posts";
 import styles from "./Styles/Sass/profile.module.scss";
@@ -13,6 +13,7 @@ function Profile() {
   const [{ posts, isLoading }, dispatch] = reducer;
   const { displayName, email, displayPhoto, phoneNumber } = user;
   const history = useHistory();
+  const [toggleModal, setToggleModal] = useState(false);
 
   const getPostfromfirebase = (_) => {
     try {
@@ -35,6 +36,10 @@ function Profile() {
     }
   };
 
+  const handleToggleModal = (_) => {
+    setToggleModal(!toggleModal);
+  };
+
   useEffect(() => {
     let unsubscribe = getPostfromfirebase();
     return unsubscribe;
@@ -47,9 +52,9 @@ function Profile() {
       console.log(error);
     }
   };
+
   return (
     <>
-      <PostForm />
       <div className={styles.profileContainer}>
         <img
           src={displayPhoto}
@@ -64,7 +69,9 @@ function Profile() {
           <span className={styles.email}>{email}</span> <br />
         </div>
         <div className={styles.buttonContainer}>
-          <button className={styles.updateProfile}>Update profile</button>
+          <button onClick={handleToggleModal} className={styles.updateProfile}>
+            Update profile
+          </button>
           <button className={styles.signout} onClick={handleClickSignout}>
             Signout
           </button>
@@ -77,6 +84,7 @@ function Profile() {
       ) : (
         <EmptyPost />
       )}
+      {toggleModal && <EditProfileForm toggleModal={handleToggleModal} />}
     </>
   );
 }

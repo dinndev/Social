@@ -56,7 +56,7 @@ function SkeletonItems() {
                   <Skeleton className="postName" height={15} width={150} />
                   <br />
                   <span className="postEmail">
-                    <Skeleton height={10} width={200} />
+                    <Skeleton height={10} width={150} />
                   </span>
                 </span>
               </div>
