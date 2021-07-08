@@ -16,8 +16,9 @@ function Posts() {
   return (
     <ul className={styles.posts}>
       {posts &&
-        Array.from(posts).map(({ body, postId, isLike }) => (
+        Array.from(posts).map(({ body, postId, isLike, postImg }) => (
           <Post
+            postImg={postImg}
             isLike={isLike}
             toggleModal={() => toggleModal(postId)}
             modal={showModal}

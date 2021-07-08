@@ -5,25 +5,25 @@ import uniqid from "uniqid";
 import styles from "./Styles/Sass/modal.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
 function PostForm({ toggleModal }) {
-  const postValue = useRef("");
+  const postValue = useRef({});
   const { user, reducer } = useDataContext();
   const [{ posts, isLoading }, dispatch] = reducer;
-  const [value, setValue] = useState("");
+
   const writePosts = async (e) => {
     e.preventDefault();
-
     try {
       let id = uniqid("post-");
       database
         .ref(`posts/${user.uId}/${id}`)
         .set({
-          body: postValue.current.value,
+          body: postValue.current.captionVal.value,
           time: new Date().getTime(),
           postId: id,
           isLike: false,
+          postImg: postValue.current.imgUrl.value,
         })
         .then(() => {
-          postValue.current.value = "";
+          postValue.current.captionVal.value = "";
         });
     } catch (error) {
       console.log(error);
@@ -32,26 +32,30 @@ function PostForm({ toggleModal }) {
 
   return (
     <AnimatePresence>
-      <motion.form
+      <motion.div
         transition={{ duration: 0.5 }}
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
         exit={{ opacity: 0 }}
         className={styles.postFormModal}
       >
-        <input
-          onChange={(e) => setValue(e.target.value)}
-          aria-required
-          ref={postValue}
-          name="post-form"
-          type="text"
-          placeholder="What's on your mind?"
-        />
-        <button disabled={!value} onClick={(e) => writePosts(e)} type="submit">
-          Post
-        </button>
-        <span onClick={toggleModal}>X</span>
-      </motion.form>
+        <form onSubmit={writePosts}>
+          <input
+            aria-required
+            ref={(el) => (postValue.current["captionVal"] = el)}
+            name="post-form"
+            type="text"
+            placeholder="What's on your mind?"
+          />
+          <input
+            ref={(el) => (postValue.current["imgUrl"] = el)}
+            type="text"
+            placeholder="url"
+          />
+          <button type="submit">Post</button>
+          <span onClick={toggleModal}>X</span>
+        </form>
+      </motion.div>
     </AnimatePresence>
   );
 }

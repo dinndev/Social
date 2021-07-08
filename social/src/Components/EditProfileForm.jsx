@@ -40,7 +40,7 @@ function EditProfileForm() {
     }
     console.log(inputRef.current.newConfirmPassword.value);
   };
-
+  const handleSetValue = (e) => setValue(e.target.value);
   return (
     <AnimatePresence>
       <motion.form
@@ -52,6 +52,7 @@ function EditProfileForm() {
         onSubmit={(e) => updateProfile(e)}
       >
         <input
+          onChange={handleSetValue}
           required
           ref={(el) => (inputRef.current["newDisplayName"] = el)}
           type="text"
@@ -67,7 +68,6 @@ function EditProfileForm() {
           placeholder="Provide valid url for display picture"
         />
         <input
-          onChange={(e) => setValue(e.target.value)}
           ref={(el) => (inputRef.current["newPassword"] = el)}
           type="password"
           name="newPassword"
@@ -81,11 +81,7 @@ function EditProfileForm() {
           id="newConfirmPassword"
           placeholder="Confirm password"
         />
-        <button
-          disabled={!value}
-          ref={(el) => (inputRef.current["submit"] = el)}
-          type="submit"
-        >
+        <button disabled={!value} type="submit">
           Update Profile
         </button>
         d

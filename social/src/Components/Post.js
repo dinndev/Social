@@ -4,7 +4,7 @@ import { database } from "./helperFunctions";
 import styles from "./Styles/Sass/post.module.scss";
 import { AnimatePresence, motion } from "framer-motion";
 
-function Post({ body, postId, isLike }) {
+function Post({ body, postId, isLike, postImg }) {
   const [toBeEditPost, setToBeEditData] = useState("");
 
   const [toggleModal, setToggleModal] = useState(false);
@@ -69,6 +69,7 @@ function Post({ body, postId, isLike }) {
         </div>
         <div className={styles.postContainer}>
           <p className={styles.postDescription}>{body}</p>
+          <img src={postImg} className={styles.postImg} alt="" />
         </div>
         <div className={styles.options}>
           <svg
